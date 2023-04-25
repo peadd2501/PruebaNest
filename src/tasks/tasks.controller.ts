@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, Post, Put, Body } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Put, Body, Param, Req, Res } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto'
+import { Request, Response } from 'express'
 @Controller('tasks')
 export class TasksController {
   
@@ -14,13 +15,16 @@ export class TasksController {
     return 'Creating task';
   }
 
-  @Put()
-  updateTask(): string {
+  @Put(':id')
+  updateTask(@Body() task: CreateTaskDto, @Param('id') id): string {
+    console.log(task)
+    console.log(id)
     return 'Updating task'
   }
 
-  @Delete()
-  deleteTask(): string {
-    return 'Deleting a task'
+  @Delete(':id')
+  deleteTask(@Param('id') id): string {
+    console.log(id);
+    return `Deleting a task: ${id}`
   }
 }
