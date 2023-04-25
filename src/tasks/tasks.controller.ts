@@ -1,14 +1,26 @@
-import { Controller, Get, Post } from '@nestjs/common';
-
+import { Controller, Delete, Get, Post, Put, Body } from '@nestjs/common';
+import { CreateTaskDto } from './dto/create-task.dto'
 @Controller('tasks')
 export class TasksController {
+  
   @Get()
-  getTasks(): string {
-    return 'Get task';
+  getTasks(): Object {
+    return {"hello": "World", "Test": 1};
+  }
+  
+  @Post()
+  createTask(@Body() task: CreateTaskDto): string {
+    console.log(task.title, task.description, task.done);
+    return 'Creating task';
   }
 
-  @Post()
-  createTask(): string {
-    return 'Creating task';
+  @Put()
+  updateTask(): string {
+    return 'Updating task'
+  }
+
+  @Delete()
+  deleteTask(): string {
+    return 'Deleting a task'
   }
 }
